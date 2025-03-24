@@ -195,7 +195,16 @@ export const getTransactionStatus = (date: Date) => {
   return date > twoDaysAgo ? "Processing" : "Success";
 };
 
-export const authFormSchema = z.object({
-    email: z.string().email( {message:'email non valida'}),
-    password: z.string().min(8, {message: 'la password deve contenere almeno 8 caratteri'}),
+export const authFormSchema = (type: string) => z.object({
+  email: z.string().email({ message: 'email non valida' }),
+  password: z.string().min(8, { message: 'la password deve contenere almeno 8 caratteri' }),
+  //sign-up
+  firstName: type === 'sign-in' ? z.string().optional() : z.string({message: 'il campo é obbligatorio'}).min(3),
+  lastName: type === 'sign-in' ? z.string().optional() : z.string({message: 'il campo é obbligatorio'}).max(50),
+  address1: type === 'sign-in' ? z.string().optional() : z.string({message: 'il campo é obbligatorio'}).min(3,{message:'inserisci un indirizzo valido'}).max(50),
+  state: type === 'sign-in' ? z.string().optional() : z.string({message: 'il campo é obbligatorio'}).min(2,{message:'minimo 2 caratteri'}).max(2,{message:'massimo 2 caratteri'}),
+  postalCode: type === 'sign-in' ? z.string().optional() : z.string({message: 'il campo é obbligatorio'}).min(3),
+  dateOfBirth: type === 'sign-in' ? z.string().optional() : z.string({message: 'il campo é obbligatorio'}).date(),
+  cf: type === 'sign-in' ? z.string().optional() : z.string({message: 'il campo é obbligatorio'}).min(16, {message:'inserisci un codice fiscale valido'}),
+  city: type === 'sign-in' ? z.string().optional() : z.string({message: 'il campo é obbligatorio'}).min(2, {message:'minimo 2 caratteri'}),
 })
