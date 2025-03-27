@@ -13,10 +13,12 @@ import { authFormSchema } from '@/lib/utils'
 import { Loader2 } from 'lucide-react'
 import CustomSelect from './CustomSelect'
 import { useRouter } from 'next/navigation'
+import { getLoggedInUser, signIn, signUp } from '@/lib/actions/user.actions'
 
 export const AuthForm = ({ type }: { type: string }) => {
 
     const [user, setUser] = useState(null);
+    
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const router = useRouter();
     const formSchema = authFormSchema(type)
@@ -30,6 +32,7 @@ export const AuthForm = ({ type }: { type: string }) => {
 
     })
 
+
     const onSubmit = async (data: z.infer<typeof formSchema>) => {
         setIsLoading(true)
         try {
@@ -41,19 +44,13 @@ export const AuthForm = ({ type }: { type: string }) => {
 
             if(type === 'sign-in'){
 
-                const response = await signIn(
-                    {
-                        email: data.email, 
-                        password: data.password
-                    }
-                )
+                const response = await signIn({
+                    email: data.email, 
+                    password: data.password
+                })
 
-                if(response){
-                    router.push('/')
-                }
-
-
-
+                if(response) router.push('/');
+                
             }
 
         } catch (error) {
@@ -62,7 +59,6 @@ export const AuthForm = ({ type }: { type: string }) => {
             setIsLoading(false)
         }
 
-        
     }
 
     return (
@@ -196,7 +192,7 @@ export const AuthForm = ({ type }: { type: string }) => {
                                     <Button className='form-btn' disabled={isLoading} type="submit">{
                                         isLoading ? (
                                             <>
-                                                <Loader2 size={20} className='animate-spin' /> &nmsp; Attendi...
+                                                <Loader2 size={20} className='animate-spin mr-2' />  Attendi...
                                             </>
                                         ) : type === 'sign-in'
                                             ? 'Accedi'

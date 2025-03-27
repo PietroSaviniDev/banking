@@ -1,15 +1,12 @@
 import { HeaderBox } from "@/components/HeaderBox";
 import { RightSidebar } from "@/components/RightSidebar";
 import { TotalBalanceBox } from "@/components/TotalBalanceBox";
+import { getLoggedInUser } from "@/lib/actions/user.actions";
 
 
 const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
 
-  const loggedIn = {
-    firstName: 'Pietro',
-    lastName: 'Savini',
-    email: 'savinipietro.dev@gmail.com'
-  };
+  const loggedIn = await getLoggedInUser()
 
   return (
     <section className="home">
@@ -18,7 +15,7 @@ const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
           <HeaderBox 
             type="greeting"
             title="Bentornato" 
-            user={loggedIn?.firstName || 'Guest'} 
+            user={loggedIn?.name || 'Guest'} 
             subtext={"Accedi per gestire il tuo account e transazioni efficacemente"}
           />
 
