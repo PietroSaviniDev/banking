@@ -11,8 +11,7 @@ import { Form } from "@/components/ui/form"
 import CustomInput from './CustomInput'
 import { authFormSchema } from '@/lib/utils'
 import { Loader2 } from 'lucide-react'
-import CustomSelect from './CustomSelect'
-import { useRouter } from 'next/navigation'
+import {  useRouter } from 'next/navigation'
 import { getLoggedInUser, signIn, signUp } from '@/lib/actions/user.actions'
 
 export const AuthForm = ({ type }: { type: string }) => {
@@ -48,8 +47,12 @@ export const AuthForm = ({ type }: { type: string }) => {
                     email: data.email, 
                     password: data.password
                 })
+                    
+                if(response){
+                    console.log('LOG IN SUCCESSFULL: ', response)
 
-                if(response) router.push('/');
+                    router.push("/")
+                }
                 
             }
 

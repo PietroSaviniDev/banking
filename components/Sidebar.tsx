@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation'
 import React from 'react'
 import Footer from './Footer'
 
-export const Sidebar = ({ user }: { user: SiderbarProps }) => {
+export const Sidebar = ({ user }: SiderbarProps) => {
 
     const pathName = usePathname();
 

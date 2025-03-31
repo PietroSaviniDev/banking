@@ -7,19 +7,19 @@ import { getLoggedInUser } from "@/lib/actions/user.actions";
 const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
 
   const loggedIn = await getLoggedInUser()
-
+  console.log(loggedIn)
   return (
     <section className="home">
       <div className="home-content">
         <header className="home-header">
-          <HeaderBox 
+          <HeaderBox
             type="greeting"
-            title="Bentornato" 
-            user={loggedIn?.name || 'Guest'} 
+            title="Bentornato"
+            user={loggedIn?.name || 'Guest'}
             subtext={"Accedi per gestire il tuo account e transazioni efficacemente"}
           />
 
-          <TotalBalanceBox 
+          <TotalBalanceBox
             accounts={[]}
             totalBanks={1}
             totalCurrentBalance={1250.35}
@@ -27,10 +27,10 @@ const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
         </header>
         TRANSAZIONI RECENTI
       </div>
-      <RightSidebar 
+      <RightSidebar
         user={loggedIn}
         transactions={[]}
-        banks={[{currentBalance:999.87},{currentBalance:1988.78}]}
+        banks={[]}
       />
     </section>
   )
